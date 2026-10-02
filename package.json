@@ -16,7 +16,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yangletian/dsh-session-cost.git"
+    "url": "git+https://github.com/bigfatdsh/dsh-session-cost.git"
   },
   "main": "lib/index.js",
   "exports": {
