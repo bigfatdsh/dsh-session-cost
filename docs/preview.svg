@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 432" width="720" height="432" role="img" aria-label="dsh-session-cost 的两个显示位置示意图">
+  <title>dsh-session-cost 显示位置示意</title>
+  <desc>示意图，非截图。本轮花费显示在每条回复的动作行，紧挨内置的「用量 N tok」；本会话累计花费显示在输入框下方，紧挨内置的「token 用量 · 缓存命中」。</desc>
+
+  <style>
+    .bg      { fill: #ffffff; }
+    .card    { fill: #f7f8fa; stroke: #e3e6ea; stroke-width: 1; }
+    .panel   { fill: #ffffff; stroke: #e3e6ea; stroke-width: 1; }
+    .text    { fill: #4a5058; font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; font-size: 12px; }
+    .label   { fill: #8b9199; font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; font-size: 12px; }
+    .caption { fill: #a0a6ad; font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; font-size: 11px; }
+    .new     { fill: #eef4ff; stroke: #7aa2f7; stroke-width: 1; }
+    .newtext { fill: #2f5fd0; font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; font-size: 12px; font-weight: 600; }
+    .swatch  { fill: #eef4ff; stroke: #7aa2f7; stroke-width: 1; }
+    .legend  { fill: #4a5058; font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; font-size: 12px; }
+    .rule    { stroke: #e9ecef; stroke-width: 1; }
+  </style>
+
+  <rect class="bg" width="720" height="432" rx="12"/>
+
+  <!-- ── 对话区 ────────────────────────────────────────────── -->
+  <rect class="card" x="24" y="24" width="672" height="204" rx="10"/>
+  <text class="label" x="40" y="48">对话</text>
+
+  <rect class="panel" x="40" y="62" width="640" height="74" rx="8"/>
+  <text class="text" x="56" y="88">助手回复的正文……</text>
+  <text class="label" x="56" y="121">复制</text>
+  <rect class="new" x="92" y="104" width="96" height="23" rx="5"/>
+  <text class="newtext" x="102" y="120">¥ 花费 0.42</text>
+  <text class="label" x="204" y="121">分支</text>
+  <text class="label" x="252" y="121">用量 12.3k tok</text>
+
+  <rect class="panel" x="40" y="148" width="640" height="64" rx="8"/>
+  <text class="text" x="56" y="173">助手回复的正文……</text>
+  <text class="label" x="56" y="199">复制</text>
+  <rect class="new" x="92" y="182" width="96" height="23" rx="5"/>
+  <text class="newtext" x="102" y="198">¥ 花费 0.08</text>
+  <text class="label" x="204" y="199">分支</text>
+  <text class="label" x="252" y="199">用量 2.1k tok</text>
+
+  <!-- ── 输入框区 ──────────────────────────────────────────── -->
+  <rect class="card" x="24" y="244" width="672" height="104" rx="10"/>
+  <text class="label" x="40" y="268">输入框</text>
+
+  <rect class="panel" x="40" y="278" width="640" height="34" rx="8"/>
+  <text class="caption" x="56" y="299">输入消息…</text>
+
+  <text class="label" x="96" y="333">3 轮 12 步 · 45 tok/s</text>
+  <text class="label" x="252" y="333">12.3k tok · 缓存命中 92%</text>
+  <rect class="new" x="424" y="316" width="124" height="23" rx="5"/>
+  <text class="newtext" x="434" y="332">¥ 本会话 12.35</text>
+
+  <!-- ── 图例 ──────────────────────────────────────────────── -->
+  <line class="rule" x1="24" y1="366" x2="696" y2="366"/>
+  <rect class="swatch" x="24" y="378" width="16" height="14" rx="4"/>
+  <text class="legend" x="48" y="389">本轮花费：每条回复的动作行，紧挨「用量 N tok」</text>
+  <rect class="swatch" x="24" y="402" width="16" height="14" rx="4"/>
+  <text class="legend" x="48" y="413">本会话累计花费：输入框下方，紧挨「token 用量 · 缓存命中」</text>
+</svg>
