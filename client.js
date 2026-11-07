@@ -44,6 +44,7 @@ window.__ModuleLoader__.load({
       'cost.turn': '花费 {amount}',
       'cost.turnTitle': '本轮花费 {amount}',
       'cost.unpriced': '另有 {tokens} token 未计价：该模型不在价目表中，实际花费只会更高。',
+      'cost.estimated': '其中 {count} 次失败重试按输入估算（{amount}）：这些请求服务端已计费，但会话里没有 usage，金额是保守下限估算。',
       'cost.peak': '按 DeepSeek 官方峰谷分时价目表计算，高峰时段单价翻倍。',
     }
 
@@ -54,6 +55,7 @@ window.__ModuleLoader__.load({
       'cost.turn': 'Cost {amount}',
       'cost.turnTitle': 'This turn {amount}',
       'cost.unpriced': '{tokens} more tokens are unpriced: that model is not in the price table, so the real cost is higher.',
+      'cost.estimated': '{count} failed retries are estimated from their input ({amount}): the server billed them but no usage was recorded, so this is a conservative lower bound.',
       'cost.peak': 'Priced with DeepSeek\'s peak/off-peak table; peak hours cost double.',
     }
 
@@ -214,9 +216,15 @@ window.__ModuleLoader__.load({
      * @param amount - 已带币种符号的金额文本。
      * @param unpricedTokens - 该范围的未计价 token 数。
      */
-    function titleOf(t, baseKey, amount, unpricedTokens) {
+    function titleOf(t, baseKey, amount, unpricedTokens, estimate) {
       let text = t(baseKey, { amount })
       if (unpricedTokens > 0) text += `\n${t('cost.unpriced', { tokens: formatCount(unpricedTokens) })}`
+      if (estimate !== undefined && estimate.count > 0) {
+        text += `\n${t('cost.estimated', {
+          count: formatCount(estimate.count),
+          amount: `${symbolOf(estimate.currency)}${formatAmount(estimate.micros)}`,
+        })}`
+      }
       return `${text}\n${t('cost.peak')}`
     }
 
@@ -247,15 +255,16 @@ window.__ModuleLoader__.load({
     function SessionCostPill({ useProjection, t }) {
       const view = useProjection(PROJECTION_KEY)
       if (view === undefined || view === null) return null
-      const { micros, unpricedTokens, currency } = view
+      const { micros, unpricedTokens, estimatedMicros = 0, estimatedRequests = 0, currency } = view
       if (micros === 0 && unpricedTokens === 0) return null
       const digits = `${formatAmount(micros)}${unpricedTokens > 0 ? '+' : ''}`
+      const estimate = estimatedRequests > 0 ? { count: estimatedRequests, micros: estimatedMicros, currency } : undefined
       return h(
         'span',
         {
           className: 'dsh-cost-pill',
           'data-session-cost': true,
-          title: titleOf(t, 'cost.sessionTitle', `${symbolOf(currency)}${digits}`, unpricedTokens),
+          title: titleOf(t, 'cost.sessionTitle', `${symbolOf(currency)}${digits}`, unpricedTokens, estimate),
         },
         amountGlyph(currency, t('cost.session', { amount: digits })),
       )
