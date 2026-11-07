@@ -122,7 +122,7 @@ async function main() {
     const res = await api(`/repos/${REPO}/contents/${encodeURI(file)}`, {
       method: 'PUT',
       body: JSON.stringify({
-        message: `dsh-wpac ${file}`,
+        message: `dsh-session-cost ${file}`,
         content: buffer.toString('base64'),
         branch: BRANCH,
         ...(sha ? { sha } : {}),
