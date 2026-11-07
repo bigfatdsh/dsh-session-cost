@@ -1,6 +1,6 @@
 {
   "name": "dsh-session-cost",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "description": "在对话的 token 用量旁显示本轮花费、在输入框下方显示本会话总花费（DeepSeek 官方峰谷价目表）。",
